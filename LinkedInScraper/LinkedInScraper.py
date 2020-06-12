@@ -33,17 +33,14 @@ class Scraper:
 
     def set_title(self):
         result = self.search_pattern("topcard__title")
-        print(result)
-        self.jobad.set_title()
+        self.jobad.set_title(result)
 
     def set_company_name(self):
         result = self.search_pattern("public_jobs_topcard_org_name")
-        print(result)
         self.jobad.set_name(result)
 
     def set_company_contact(self):
         result = self.search_pattern("profile-result-card__title")
-        print(result)
         self.jobad.set_contact(name=result, who="att")
 
     def get_cvr_info(cvr, country='dk'):
