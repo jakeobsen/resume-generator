@@ -3,7 +3,7 @@
 # Copyright: Morten Jakobsen © 2020
 
 class JobAd:
-    def __init__(self):
+    def __init__(self) -> None:
         self.company = {
             "name": None,
             "address": {
@@ -28,7 +28,7 @@ class JobAd:
             "title": None
         }
 
-    def set_name(self, name):
+    def set_name(self, name) -> None:
         self.company['name'] = name
 
     def set_address(self,
@@ -36,7 +36,7 @@ class JobAd:
                     address_2=None,
                     zipcode=None,
                     city=None,
-                    country=None,):
+                    country=None,) -> None:
         self.company['address'] = {
                 "address_1": address_1,
                 "address_2": address_2,
@@ -49,7 +49,7 @@ class JobAd:
                     name='Primary contact',
                     email=None,
                     phone=None,
-                    who="main"):
+                    who="main") -> None:
         self.company[f'{who}_contact'] = {
                 'name': name,
                 'email': email,

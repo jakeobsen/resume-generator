@@ -18,7 +18,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(s.lnhtml), 0)
 
     def test_scraper_can_scrape(self):
-        s = Scraper("https://raw.githubusercontent.com/jakeobsen/resume/master/LinkedInScraper/tests/mock/mock_ln.html")
+        mock_url = "https://raw.githubusercontent.com/jakeobsen/resume/master/LinkedInScraper/tests/mock/mock_ln.html"
+        s = Scraper(mock_url)
         s.get_page()
         self.assertEqual(s.lnhtml[0], "<!DOCTYPE html")
         self.assertEqual(s.lnhtml[22], 'meta property="og:title" content="PostNord i Danmark hiring '
@@ -27,12 +28,26 @@ class MyTestCase(unittest.TestCase):
 
     def test_scraper_can_extract(self):
         s = Scraper("https://raw.githubusercontent.com/jakeobsen/resume/master/LinkedInScraper/tests/mock/mock_ln.html")
-        s.get_page()
+
         s.set_title()
-        s.set_company_contact()
+        self.assertEqual(s.jobad.position['title'], "")
+
+        #s.set_company_contact()
+        #self.assertEqual(s.jobad.company['att_contact']['name'], "")
+
         s.set_company_name()
-        print(s.jobad.company)
-        print(s.jobad.position)
+        self.assertEqual(s.jobad.company['name'], "")
+
+        s.get_page()
+
+        s.set_title()
+        self.assertEqual(s.jobad.position['title'], "Python udvikler til PostNord Digital i København")
+
+        #s.set_company_contact()
+        #self.assertEqual(s.jobad.company['att_contact']['name'], "")
+
+        s.set_company_name()
+        self.assertEqual(s.jobad.company['name'], "PostNord i Danmark")
 
 
 if __name__ == '__main__':
