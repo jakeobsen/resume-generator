@@ -114,15 +114,21 @@ if __name__ == "__main__":
             file += '\\newcommand{{\\' + var + '}}{' + val + '}\n'
         del(var, val)
 
+        # Write variables to file
         file += "{}{}{}".format("\input{", args.texfile, "}")
         with open('.latex_application_temp.tex', 'w')as fw:
             fw.write(file)
 
         # Prepare a filename
         date = datetime.now()
-        filename = f"{expanduser('~/Desktop/')}{date.year}-{date.month}-{date.day}_{texvars['companyName'].replace(' ', '_').replace('/','')}.pdf"
+        filename = "".join([
+            expanduser('~/Desktop/'),
+            f"{date.year}-{date.month}-{date.day}_",
+            f"{texvars['companyName'].replace(' ', '_').replace('/','')}",
+            ".pdf"
+        ])
 
-        # generate outout
+        # Generate output, and cleanup
         run("xelatex .latex_application_temp.tex", shell=True, check=True)
         remove(".latex_application_temp.aux")
         remove(".latex_application_temp.log")
