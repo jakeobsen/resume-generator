@@ -7,6 +7,7 @@ import json
 import urllib.parse
 import urllib.request as request
 
+
 class Scraper:
 
     def __init__(self, url) -> None:
@@ -48,13 +49,15 @@ class Scraper:
         :return: dict with results from cvr - empty dict on error
         """
         request_a = request.Request(headers={'User-Agent': 'Job Database'},
-            url='http://cvrapi.dk/api?search=%s&country=%s' % (urllib.parse.quote(string),language))
+                                    url='http://cvrapi.dk/api?search=%s&country=%s' % (
+                                    urllib.parse.quote(string), language))
         try:
             with contextlib.closing(request.urlopen(request_a)) as response:
                 data = json.loads(response.read())
         except Exception as e:
             data = {}
         return data
+
 
 if __name__ == "__main__":
     import argparse
@@ -112,7 +115,7 @@ if __name__ == "__main__":
         for var, val in texvars.items():
             val = input(f"{var}: ") if val == "" else val
             file += '\\newcommand{{\\' + var + '}}{' + val + '}\n'
-        del(var, val)
+        del (var, val)
 
         # Write variables to file
         file += "{}{}{}".format("\input{", args.texfile, "}")
@@ -124,7 +127,7 @@ if __name__ == "__main__":
         filename = "".join([
             expanduser('~/Desktop/'),
             f"{date.year}-{date.month}-{date.day}_",
-            f"{texvars['companyName'].replace(' ', '_').replace('/','')}",
+            f"{texvars['companyName'].replace(' ', '_').replace('/', '')}",
             ".pdf"
         ])
 
